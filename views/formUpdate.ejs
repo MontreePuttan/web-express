@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>formUpdate</title>
+	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+</head>
+<body>
+<form action="/getformupdate" method="post">
+	
+
+                           
+        <% if(data.length){ 
+                        
+         for(var i = 0;i < data.length;i++) { %>  
+
+    <input type="hidden" id="id" name="id" value="<%=data[i].id%>">
+    <label for="">firstname</label>
+	<input type="text" id="firstname" name="firstname" value="<%=data[i].firstname%>">
+	<br>
+	<label for="">lastname</label>
+	<input type="text" id="lastname" name="lastname" value="<%=data[i].lastname%>">
+	<br>
+	<label for="">email</label>
+	<input type="text" id="email" name="email" value="<%=data[i].email%>">
+	<br>
+	<input type="submit" value="Update">               
+       
+    <% }
+    
+     } %>
+
+
+    </form>
+
+</body>
+</html>

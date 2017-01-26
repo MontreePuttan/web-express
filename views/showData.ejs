@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>about</title>
+	<link rel="stylesheet" type="text/css" href="/assets/styles.css">
+</head>
+<body>
+
+<h2>Hobbies</h2>
+<a class="a-inside edit" href="/forminsert">Insert</a>
+<br>
+<br>
+    <table border="1" cellpadding="7" cellspacing="7">
+        <tr>
+            <th width="50px">No</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th width="120px">Action</th>
+        </tr>                               
+        <% if(data.length){ 
+                        
+         for(var i = 0;i < data.length;i++) { %>                 
+        <tr>
+            <td><%=(i+1)%></td>
+            <td><%=data[i].firstname%></td>
+            <td><%=data[i].lastname%></td>
+            <td><%=data[i].email%></td>
+            <td>
+                <a class="a-inside edit" href="/getformupdate/<%=data[i].id%>">Edit</a>                       
+                <a class="a-inside delete" href="../customers/delete/<%=data[i].id%>">Delete</a>                       
+            </td>
+        </tr>
+    <% }
+    
+     }else{ %>
+         <tr>
+            <td colspan="3">No user</td>
+         </tr>
+    <% } %>
+                                                     
+    </table>
+</body>
+</html>
