@@ -240,6 +240,12 @@ app.get('/update', function (req, res) {
      */
 });
 
+//Template-freelancer
+app.get('/template', function (req, res) {
+
+    res.render('template-freelancer/content-full-width');
+});
+
 
 //404 page
 app.get('*', function (req, res) {
