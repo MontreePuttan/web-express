@@ -1,44 +1,81 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>about</title>
-	<link rel="stylesheet" type="text/css" href="/assets/styles.css">
+	
+	<!-- <link rel="stylesheet" type="text/css" href="/assets/styles.css"> -->
+    <title>about</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-<h2>Hobbies</h2>
-<a class="a-inside edit" href="/forminsert">Insert</a>
-<br>
-<br>
-    <table border="1" cellpadding="7" cellspacing="7">
-        <tr>
-            <th width="50px">No</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th width="120px">Action</th>
-        </tr>                               
-        <% if(data.length){ 
-                        
-         for(var i = 0;i < data.length;i++) { %>                 
-        <tr>
-            <td><%=(i+1)%></td>
-            <td><%=data[i].firstname%></td>
-            <td><%=data[i].lastname%></td>
-            <td><%=data[i].email%></td>
-            <td>
-                <a class="a-inside edit" href="/getformupdate/<%=data[i].id%>">Edit</a>                       
-                <a class="a-inside delete" href="../customers/delete/<%=data[i].id%>">Delete</a>                       
-            </td>
-        </tr>
-    <% }
+<form action="#">
+    <p><label><input type="checkbox" id="checkAll"/> Check all</label></p>
     
-     }else{ %>
-         <tr>
-            <td colspan="3">No user</td>
-         </tr>
-    <% } %>
-                                                     
-    </table>
+    <fieldset>
+        <legend>Loads of checkboxes</legend>
+        <p><label><input type="checkbox" /> Option 1</label></p>
+        <p><label><input type="checkbox" /> Option 2</label></p>
+        <p><label><input type="checkbox" /> Option 3</label></p>
+        <p><label><input type="checkbox" /> Option 4</label></p>
+    </fieldset>
+</form>
+
+<script type="text/javascript">
+    $("#checkAll").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+    });
+</script>
+
+<div class="container">
+    <div class="row">
+        <h2>Hobbies</h2>
+        <a class="a-inside edit" href="/forminsert">Insert</a>
+        <br>
+        <br>
+            <table class="table table-bordered">
+                <tr>
+                    <th></th>
+                    <th width="50px">No</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th width="120px">Action</th>
+                </tr>                               
+                <% if(data.length){ 
+                                
+                 for(var i = 0;i < data.length;i++) { %>                 
+                <tr>
+                    <td><input type="checkbox" name="check[]" value="<%=data[i].id%>"></td>
+                    <td><%=(i+1)%></td>
+                    <td><%=data[i].firstname%></td>
+                    <td><%=data[i].lastname%></td>
+                    <td><%=data[i].email%></td>
+                    <td>
+                        <a class="a-inside edit" href="/getformupdate/<%=data[i].id%>">Edit</a>
+                        <a href="/deleteData/<%=data[i].id%>" onclick="return confirm('Are you sure?')">Delete</a>
+                        
+
+
+                    
+                    </td>
+                </tr>
+            <% }
+            
+             }else{ %>
+                 <tr>
+                    <td colspan="3">No user</td>
+                 </tr>
+            <% } %>
+                                                             
+            </table>
+    </div>
+</div>
+
+
+
 </body>
 </html>

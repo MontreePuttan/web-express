@@ -2,21 +2,32 @@
 <html>
 <head>
 	<title>formUpdate</title>
-	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<form action="/forminsert" method="post">
+
+<div class="container">
+   
+
+    <form action="/forminsert" method="post">
     <label for="">firstname</label>
-    <input type="text" id="firstname" name="firstname" value="name">
+    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
     <br>
     <label for="">lastname</label>
-    <input type="text" id="lastname" name="lastname" value="lname">
+    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="lastname">
     <br>
     <label for="">email</label>
-    <input type="text" id="email" name="email" value="email">
+    <input type="text" class="form-control" id="email" name="email" placeholder="email">
     <br>
     <input type="submit" value="Insert">               
 </form>
+
+</div>
+
 
 </body>
 </html>

@@ -2,12 +2,60 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var db = require('./db');
-
+var cookie = require('cookie-parser');
+var session = require('express-session');
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 app.set('view engine', 'ejs');
 app.use('/assets', express.static('assets'))
 
+app.use(cookie());
+app.use(session({ secret: 'keyboard_cat',resave: false,saveUninitialized: true}));
+
+
+app.get('/createSession2', function (req, res) {
+    //req.session.name = req.params.user;
+
+    //res.send(req.session.name);
+    req.session.name = 'Napoleon';
+    var name = req.session.name;
+    res.send(name);
+    //res.end("Create YoYo");
+});
+
+
+
+app.get('/createSession', function(req, res) {
+    req.session.from_session = 30000000;
+    res.render('showSession', {session: req.session.from_session});
+    //res.redirect('/session');
+
+});
+
+app.get('/delSession', function(req, res) {
+    req.session.destroy(function() {
+    res.send('Session deleted');
+    });
+});
+
+app.get('/showSession', function(req, res) {
+    res.render('showSession', {session: req.session.from_session});
+});
+
+
+
+
+
+
+app.get('/createCookie', function (req, res) {
+    res.cookie('myCookie','Cookie_Montree');
+    res.end("Create Cookie");
+});
+
+app.get('/deleteCookie', function (req, res) {
+    res.clearCookie('myCookie','Cookie_Montree');
+    res.end("Delete Cookie");
+});
 
 
 app.get('/', function (req, res) {
@@ -29,11 +77,20 @@ app.get('/about/:name', function (req, res) {
     res.render('about', {person: req.params.name, data: datas});
 });
 
-
+/*
 app.get('/location', function (req, res) {
     //console.log(req.url);
     res.render('locations');
 });
+*/
+
+// call ฟังค์ชัน getLocation เมื่อ client เข้าถึงหน้าเว็บ /about
+app.get('/location', getLocation);
+
+function getLocation(req, res) {
+    res.render('locations');
+}
+
 
 //method get
 app.get('/queryStrings', function (req, res) {
@@ -56,6 +113,7 @@ app.get('/show', function (req, res) {
 
         //console.log(rows[0]); 
         res.render('showData', {data: rows});
+        
     });
 });
 
@@ -92,7 +150,7 @@ app.post('/forminsert', urlencodedParser, function (req, res) {
         } else {
             console.log('No');
         }
-    });;
+    });
 
     //res.send('Hi ID : ' + req.body.firstname);
     //console.log(firstname);
@@ -113,6 +171,27 @@ app.get('/getformupdate/:id', function (req, res) {
         res.render('formupdate', {data: rows});
     });
 
+
+});
+
+app.get('/deleteData/:id', function (req, res) {
+    //res.send('Hi ID : ' + req.params.id);
+   
+    
+    var id = req.params.id;
+    //console.log(id); 
+
+
+
+    var query = db.query('DELETE FROM users where id = ?', id, function (err, rows, fields) {
+        if (query) {
+            res.redirect('/show');
+        } else {
+            console.log('No');
+        }
+    });
+
+    
 
 });
 
